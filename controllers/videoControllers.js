@@ -64,7 +64,6 @@ export const videoDetail = async (req, res) => {
       .populate("comments");
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
-    console.log(error);
     res.redirect(routes.home);
   }
 };
@@ -155,6 +154,7 @@ export const postAddComment = async (req, res) => {
     video.save();
   } catch (error) {
     res.status(400);
+    console.log(error);
   } finally {
     res.end();
   }
