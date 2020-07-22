@@ -1,0 +1,20 @@
+.flash-message__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+  padding: 20px;
+  text-align: center;
+  &.error {
+  }
+  &.success {
+  }
+  &.info {
+    background-color: blue;
+  }
+  .flash-message__text {
+    color: white;
+    font-weight: 600;
+  }
+}
