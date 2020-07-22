@@ -28,7 +28,7 @@ function handleVolumeClick() {
   if (videoPlayer.muted) {
     videoPlayer.muted = false;
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-    videoRange.value = videoPlayer.volume;
+    volumeRange.value = videoPlayer.volume;
   } else {
     volumeRange.value = 0;
     videoPlayer.muted = true;

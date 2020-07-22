@@ -29,8 +29,14 @@ block content
                     span#jsCommentNumber=video.comments.length 
                     |  comments
             form.add__comment#jsAddComment
-                input(type="text", placeholder="Add a comment")
+                if loggedUser == null
+                    input(type="text", placeholder="You have to Login" disabled="true")
+                else
+                    input(type="text", placeholder="Add a comment")
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     li
+                        span#jsCommentId=comment.id
                         span=comment.text
+                        if loggedUser && comment.creator == loggedUser.id
+                            button.jsDeleteBtn ❌
