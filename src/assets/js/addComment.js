@@ -18,15 +18,46 @@ const deleteComment = (node) => {
   decreaseNumber();
 };
 
+const sendCommentID = async (commentId, li) => {
+  const videoId = window.location.href.split("/videos/")[1];
+  const response = await axios({
+    url: `/api/${videoId}/comment/delete`,
+    method: "POST",
+    data: {
+      commentId,
+    },
+  });
+  if (response.status === 200) {
+    deleteComment(li);
+  }
+};
+
+const handleDelete = (event) => {
+  event.preventDefault();
+  const li = event.target.parentNode;
+  const commentId = li.querySelector(".jsCommentId").innerHTML;
+  if (commentId === "1") {
+    deleteComment(li);
+  }
+  sendCommentID(commentId, li);
+};
+
 const addComment = (comment) => {
   const li = document.createElement("li");
-  const span = document.createElement("span");
+  const spanId = document.createElement("span");
+  const spanComment = document.createElement("span");
   const deleteBtn = document.createElement("button");
-  span.innerHTML = comment;
+  spanId.innerHTML = "1";
+  spanId.classList.add("jsCommentId");
+  spanComment.innerHTML = comment;
+  spanComment.classList.add("jsComment");
   deleteBtn.innerHTML = "❌";
-  li.appendChild(span);
+  deleteBtn.classList.add("jsDeleteBtn");
+  li.appendChild(spanId);
+  li.appendChild(spanComment);
   li.appendChild(deleteBtn);
   commentList.prepend(li);
+  deleteBtn.addEventListener("click", handleDelete);
   increaseNumber();
 };
 
@@ -44,34 +75,12 @@ const sendComment = async (comment) => {
   }
 };
 
-const sendCommentID = async (commentId, li) => {
-  const videoId = window.location.href.split("/videos/")[1];
-  const response = await axios({
-    url: `/api/${videoId}/comment/delete`,
-    method: "POST",
-    data: {
-      commentId,
-    },
-  });
-  if (response.status === 200) {
-    deleteComment(li);
-  }
-};
-
 const handleSubmit = (event) => {
   event.preventDefault();
   const commentInput = addCommentForm.querySelector("input");
   const comment = commentInput.value;
   sendComment(comment);
   commentInput.value = "";
-};
-
-const handleDelete = (event) => {
-  event.preventDefault();
-  const li = event.target.parentNode;
-  const commentId = li.querySelector("#jsCommentId").innerHTML;
-  console.log(commentId);
-  sendCommentID(commentId, li);
 };
 
 function init() {

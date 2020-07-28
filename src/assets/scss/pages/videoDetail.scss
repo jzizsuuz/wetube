@@ -51,10 +51,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        #jsCommentId {
+        .jsCommentId {
           display: none;
         }
-        span {
+        .jsComment {
           width: 100%;
           background-color: #3498db;
           border-radius: 20px;
