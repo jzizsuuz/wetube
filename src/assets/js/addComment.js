@@ -28,7 +28,7 @@ const sendCommentID = async (commentId, li) => {
     },
   });
   if (response.status === 200) {
-    deleteComment(li);
+    if (commentId !== "1") deleteComment(li);
   }
 };
 
